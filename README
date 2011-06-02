@@ -2,10 +2,16 @@ Projeto utilizado nos artigos sobre, Testes e Ant.
 --------------------------------------------------
 Autor: Yuri Adams
 Twitter: @yuriadams
+Email: yuriadams@gmail.com
 --------------------------------------------------
 - VRaptor 3.3.1
-- JUnit 4.0
-- Ant 
+- JUnit 4.5
+- Ant 1.2
+- Spring 3.0.5
+- Hibernate
+- JPA 2.0 
+--------------------------------------------------
+SGBD - MySQL 5.1.13 
 --------------------------------------------------
 Artigo 1
 Branch: artigo01
