@@ -2,7 +2,6 @@ Projeto utilizado nos artigos sobre, Testes e Ant.
 --------------------------------------------------
 Autor: Yuri Adams
 Twitter: @yuriadams
-Email: yuriadams@gmail.com
 --------------------------------------------------
 - VRaptor 3.3.1
 - JUnit 4.5
@@ -14,7 +13,7 @@ Email: yuriadams@gmail.com
 SGBD - MySQL 5.1.13 
 --------------------------------------------------
 Artigo 1
-Branch: artigo01
+Branch: testesUnitarios
 --------------------------------------------------
 Artigo 2
 Branch: artigo02
