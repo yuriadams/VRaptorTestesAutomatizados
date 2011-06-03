@@ -59,7 +59,7 @@ public class FilmeControllerTeste {
 	
 	@Test
 	public void deveriaTratarORetornoDeUmaListaNull(){
-		when(filmeService.pesquisar(any(Filme.class))).thenReturn(new ArrayList<Filme>());
+		when(filmeService.pesquisar(any(Filme.class))).thenReturn(null);
 		filmeController.pesquisa(any(Filme.class));
 
 		assertTrue("deve exibir uma mensagem de erro", result.included().containsKey("erros"));
@@ -128,6 +128,7 @@ public class FilmeControllerTeste {
 	
 	@Test
 	public void naoDeveriaExcluirUmFilmeException() {
+		
 		doThrow(new RuntimeException()).when(filmeService).remover(CODIGO_FILME);
 		
 		filmeController.deletar(new Integer(1));
