@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="VRaptorTestesAutomatizados" basedir="." default="buildwar">
+	<property file="build.properties" />
+	
+	<path id="classpath">
+		<pathelement location="${classes.dir}" />
+		<fileset dir="${lib.root}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<target name="clean">
+		<delete dir="${target.dir}"/>
+		<mkdir dir="${classes.dir}"/>
+		<mkdir dir="${test.classes.dir}"/>
+	</target>
+	
+    <target name="compile" depends="clean">
+        <javac srcdir="${basedir}" destdir="${classes.dir}" >
+        	<classpath>
+        	    <path refid="classpath"/>
+        	</classpath>
+        </javac>
+    	<!-- Compila Test classes -->
+    	<javac destdir="${test.classes.dir}" srcdir="${test.source.dir}">
+    		<classpath>
+    		      <path refid="classpath"/>
+    		</classpath>
+    	</javac>
+    </target>
+	 
+	<target name="test-mysql" depends="compile">
+		<echo>*******************************</echo>
+		<echo>Executando testes no MySQL</echo>
+		<echo>*******************************</echo>
+		<copy 
+			file="${env.test.dir}/configuracoes-mysql-test.properties" 
+			tofile="${test.classes.dir}/configuracoes-test.properties" 
+			overwrite="true" />
+	</target>
+	
+	<target name="teste" depends="test-mysql">
+		<mkdir dir="${test.report.dir}"/>
+		<junit printsummary="on" fork="no" haltonfailure="true" haltonerror="true">
+			<sysproperty key="basedir" value="." />
+			<formatter type="xml" />
+			<classpath refid="classpath"/>
+			<batchtest todir="${test.report.dir}">
+				<!-- Unit Tests -->
+				<fileset dir="${test.source.dir}/unit">
+					<include name="${test.source.dir}/unit/${test.pattern}" />
+				</fileset>
+				<!-- Integration Tests -->
+				<fileset dir="${test.source.dir}/integration">
+					<include name="${test.source.dir}/integration/${test.pattern}" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+		
+	<target name="buildwar" depends="teste">
+        <javac srcdir="${basedir}" destdir="${classes.dir}">
+        	<classpath refid="classpath"/>
+        </javac>
+        
+    	<mkdir dir="${war.dir}" />
+		<war destfile="${war.dir}/VRaptorTestesAutomatizados.war" webxml="${web.xml}">
+			<classes dir="${classes.dir}" />
+			<lib dir="${lib.root}"></lib>
+			<fileset dir="WebRoot/">
+				<include name="META-INF/**"/>
+				<include name="*.jsp" />
+				<include name="*.html" />
+			</fileset>
+		</war>
+	  </target>
+
+</project>
+	
